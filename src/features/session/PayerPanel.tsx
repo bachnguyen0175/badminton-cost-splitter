@@ -35,7 +35,7 @@ export function PayerPanel({
 
   return (
     <div>
-      <h3 className="text-sm font-medium text-gray-700 mb-2">Who Paid?</h3>
+      <h3 className="text-sm font-medium text-muted-foreground mb-2">Who Paid?</h3>
 
       <div className="flex flex-wrap gap-2 mb-3">
         {participants.map(p => {
@@ -45,10 +45,10 @@ export function PayerPanel({
               key={p.id}
               type="button"
               onClick={() => onTogglePayer(p.id)}
-              className={`px-3 py-2 rounded-full text-sm font-medium min-h-[44px] min-w-[44px] transition-colors ${
+              className={`px-4 py-2 rounded-full text-sm font-medium min-h-[44px] min-w-[44px] transition-all duration-300 hover:scale-105 active:scale-95 ${
                 isSelected
-                  ? 'bg-green-500 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  ? 'bg-secondary text-secondary-foreground shadow-[0_4px_20px_-2px_rgba(193,140,93,0.2)]'
+                  : 'bg-accent text-accent-foreground hover:bg-accent/80'
               }`}
             >
               {p.name}
@@ -58,7 +58,7 @@ export function PayerPanel({
       </div>
 
       {isSinglePayer && (
-        <div className="text-sm text-gray-600">
+        <div className="text-sm text-muted-foreground">
           Paid: {formattedTotal}
         </div>
       )}
@@ -71,7 +71,7 @@ export function PayerPanel({
             const hasError = entry.amount !== null && entry.amount <= 0;
             return (
               <div key={entry.playerId} className="flex items-start gap-2">
-                <span className="text-sm text-gray-700 py-2 min-w-[60px]">
+                <span className="text-sm text-foreground py-2 min-w-[60px]">
                   {player.name}
                 </span>
                 <div className="flex flex-col">
@@ -90,24 +90,24 @@ export function PayerPanel({
                       }
                     }}
                     placeholder="Amount"
-                    className={`w-28 px-3 py-2 min-h-[44px] border rounded-md text-sm text-right focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      hasError ? 'border-red-500' : ''
+                    className={`w-28 px-4 py-2 min-h-[44px] border rounded-full text-sm text-right bg-white/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 transition-all duration-300 ${
+                      hasError ? 'border-destructive' : 'border-border'
                     }`}
                   />
                   {hasError && (
-                    <p className="text-xs text-red-600 mt-1">Must be greater than zero</p>
+                    <p className="text-xs text-destructive mt-1">Must be greater than zero</p>
                   )}
                 </div>
               </div>
             );
           })}
 
-          <div className="mt-2 text-sm font-medium text-gray-700">
+          <div className="mt-2 text-sm font-medium text-foreground">
             Payer total: {formattedTotal}
           </div>
 
           {showMismatchWarning && (
-            <p className="text-sm text-red-600 font-medium">
+            <p className="text-sm text-destructive font-medium">
               Payer total does not match session total cost
             </p>
           )}
@@ -115,7 +115,7 @@ export function PayerPanel({
       )}
 
       {!hasSelectedPayers && (
-        <p className="text-sm text-gray-500">Select who paid for this session</p>
+        <p className="text-sm text-muted-foreground">Select who paid for this session</p>
       )}
     </div>
   );

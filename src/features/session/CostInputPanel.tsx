@@ -25,7 +25,7 @@ export function CostInputPanel({
 
   return (
     <div>
-      <h3 className="text-sm font-medium text-gray-700 mb-2">Costs</h3>
+      <h3 className="text-sm font-medium text-muted-foreground mb-2">Costs</h3>
 
       <div className="space-y-3">
         {costItems.map(item => {
@@ -37,7 +37,7 @@ export function CostInputPanel({
                 value={item.label}
                 onChange={e => onUpdateCostItem(item.id, 'label', e.target.value)}
                 placeholder="Label / description"
-                className="flex-1 px-3 py-2 min-h-[44px] border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 px-4 py-2 min-h-[44px] border border-border rounded-full text-sm bg-white/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 transition-all duration-300"
               />
               <div className="flex flex-col">
                 <input
@@ -55,12 +55,12 @@ export function CostInputPanel({
                     }
                   }}
                   placeholder="Amount"
-                  className={`w-28 px-3 py-2 min-h-[44px] border rounded-md text-sm text-right focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    hasError ? 'border-red-500' : ''
+                  className={`w-28 px-4 py-2 min-h-[44px] border rounded-full text-sm text-right bg-white/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 transition-all duration-300 ${
+                    hasError ? 'border-destructive' : 'border-border'
                   }`}
                 />
                 {hasError && (
-                  <p className="text-xs text-red-600 mt-1">Must be greater than zero</p>
+                  <p className="text-xs text-destructive mt-1">Must be greater than zero</p>
                 )}
               </div>
               {canRemove && (
@@ -68,7 +68,7 @@ export function CostInputPanel({
                   type="button"
                   aria-label="Remove"
                   onClick={() => onRemoveCostItem(item.id)}
-                  className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-red-500 hover:text-red-700"
+                  className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-destructive/60 hover:text-destructive transition-colors duration-300"
                 >
                   ✕
                 </button>
@@ -83,12 +83,12 @@ export function CostInputPanel({
           <button
             type="button"
             onClick={onAddCostItem}
-            className="text-sm text-blue-600 hover:text-blue-800 min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="text-sm text-primary hover:text-primary/80 min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors duration-300"
           >
             + Add More
           </button>
         )}
-        <div className="text-sm font-medium text-gray-700 ml-auto">
+        <div className="text-sm font-medium text-foreground ml-auto">
           Total: {formattedTotal}
         </div>
       </div>

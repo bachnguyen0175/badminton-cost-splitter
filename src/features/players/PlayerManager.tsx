@@ -66,20 +66,20 @@ export function PlayerManager({ isOpen, onClose }: PlayerManagerProps) {
   }
 
   return (
-    <div role="dialog" aria-modal="true" className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="w-full max-w-md mx-4 bg-white rounded-lg shadow-xl">
-        <div className="flex items-center justify-between p-4 border-b">
-          <h2 className="text-lg font-semibold">Manage Players</h2>
+    <div role="dialog" aria-modal="true" className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      <div className="w-full max-w-md mx-4 bg-background rounded-[2rem] shadow-float border border-border/50">
+        <div className="flex items-center justify-between p-5 border-b border-border/50">
+          <h2 className="text-lg font-semibold font-heading text-foreground">Manage Players</h2>
           <button
             onClick={onClose}
             aria-label="Close"
-            className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-gray-500 hover:text-gray-700"
+            className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors duration-300"
           >
             ✕
           </button>
         </div>
 
-        <div className="p-4">
+        <div className="p-5">
           <div className="flex gap-2 mb-4">
             <input
               type="text"
@@ -89,18 +89,18 @@ export function PlayerManager({ isOpen, onClose }: PlayerManagerProps) {
                 setAddError('');
               }}
               placeholder="Player name"
-              className="flex-1 px-3 py-2 min-h-[44px] border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 px-4 py-2 min-h-[44px] border border-border rounded-full bg-white/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 transition-all duration-300"
             />
             <button
               onClick={handleAdd}
               aria-label="Add"
-              className="px-4 py-2 min-h-[44px] text-white bg-blue-600 rounded-md hover:bg-blue-700"
+              className="px-6 py-2 min-h-[44px] text-primary-foreground bg-primary rounded-full font-bold shadow-soft hover:scale-105 active:scale-95 transition-all duration-300"
             >
               Add
             </button>
           </div>
           {addError && (
-            <p className="mb-4 -mt-2 text-sm text-red-600">{addError}</p>
+            <p className="mb-4 -mt-2 text-sm text-destructive">{addError}</p>
           )}
 
           <ul className="space-y-2">
@@ -115,37 +115,37 @@ export function PlayerManager({ isOpen, onClose }: PlayerManagerProps) {
                         setEditName(e.target.value);
                         setEditError('');
                       }}
-                      className="flex-1 px-3 py-2 min-h-[44px] border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="flex-1 px-4 py-2 min-h-[44px] border border-border rounded-full bg-white/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 transition-all duration-300"
                     />
                     <button
                       onClick={handleSave}
                       aria-label="Save"
-                      className="px-3 py-2 min-h-[44px] text-sm text-white bg-green-600 rounded-md hover:bg-green-700"
+                      className="px-4 py-2 min-h-[44px] text-sm text-primary-foreground bg-primary rounded-full font-medium hover:scale-105 active:scale-95 transition-all duration-300"
                     >
                       Save
                     </button>
                     <button
                       onClick={cancelEdit}
                       aria-label="Cancel"
-                      className="px-3 py-2 min-h-[44px] text-sm text-gray-600 border rounded-md hover:bg-gray-100"
+                      className="px-4 py-2 min-h-[44px] text-sm text-accent-foreground border border-border rounded-full font-medium hover:bg-muted transition-all duration-300"
                     >
                       Cancel
                     </button>
                   </>
                 ) : (
                   <>
-                    <span className="flex-1">{player.name}</span>
+                    <span className="flex-1 text-foreground">{player.name}</span>
                     <button
                       onClick={() => startEdit(player.id, player.name)}
                       aria-label={`Edit ${player.name}`}
-                      className="px-3 py-2 min-h-[44px] text-sm text-blue-600 border rounded-md hover:bg-blue-50"
+                      className="px-4 py-2 min-h-[44px] text-sm text-primary border border-primary/30 rounded-full font-medium hover:bg-primary/10 transition-all duration-300"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => handleDelete(player.id)}
                       aria-label={`Delete ${player.name}`}
-                      className="px-3 py-2 min-h-[44px] text-sm text-red-600 border rounded-md hover:bg-red-50"
+                      className="px-4 py-2 min-h-[44px] text-sm text-destructive border border-destructive/30 rounded-full font-medium hover:bg-destructive/10 transition-all duration-300"
                     >
                       Delete
                     </button>
@@ -155,7 +155,7 @@ export function PlayerManager({ isOpen, onClose }: PlayerManagerProps) {
             ))}
           </ul>
           {editError && (
-            <p className="mt-2 text-sm text-red-600">{editError}</p>
+            <p className="mt-2 text-sm text-destructive">{editError}</p>
           )}
         </div>
       </div>

@@ -21,69 +21,69 @@ export function SessionDetail({ session, onBack }: SessionDetailProps) {
         <button
           type="button"
           aria-label="Back"
-          className="p-2 text-blue-600 min-w-[44px] min-h-[44px] flex items-center"
+          className="p-2 text-primary min-w-[44px] min-h-[44px] flex items-center hover:text-primary/80 transition-colors duration-300"
           onClick={onBack}
         >
           &larr; Back
         </button>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+      <div className="bg-[#FEFEFA] rounded-card-1 shadow-soft border border-border/50 p-5 transition-all duration-300 hover:shadow-soft-hover">
         <div className="flex items-center gap-2 mb-1">
-          <span className="text-sm font-medium text-gray-900">
+          <span className="text-sm font-medium text-foreground">
             {formatDate(session.date)}
           </span>
-          <span className="text-sm font-semibold text-blue-600">
+          <span className="text-sm font-semibold text-primary">
             {formatVnd(session.totalCost)}
           </span>
         </div>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-muted-foreground">
           {session.participants.map((p) => p.name).join(', ')}
         </p>
       </div>
 
       {session.note && (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-          <h3 className="text-sm font-semibold text-gray-700 mb-1">Note</h3>
-          <p className="text-sm text-gray-600">{session.note}</p>
+        <div className="bg-[#FEFEFA] rounded-card-5 shadow-soft border border-border/50 p-5 transition-all duration-300 hover:shadow-soft-hover">
+          <h3 className="text-sm font-semibold text-foreground mb-1">Note</h3>
+          <p className="text-sm text-muted-foreground">{session.note}</p>
         </div>
       )}
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-        <h3 className="text-sm font-semibold text-gray-700 mb-2">Cost Items</h3>
+      <div className="bg-[#FEFEFA] rounded-card-2 shadow-soft border border-border/50 p-5 transition-all duration-300 hover:shadow-soft-hover">
+        <h3 className="text-sm font-semibold text-foreground mb-2">Cost Items</h3>
         <ul className="space-y-1">
           {session.costItems.map((item, i) => (
             <li key={i} className="flex justify-between text-sm">
-              <span className="text-gray-900">{item.label}</span>
-              <span className="text-gray-700">{formatVnd(item.amount)}</span>
+              <span className="text-foreground">{item.label}</span>
+              <span className="text-muted-foreground">{formatVnd(item.amount)}</span>
             </li>
           ))}
         </ul>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-        <h3 className="text-sm font-semibold text-gray-700 mb-2">Payers</h3>
+      <div className="bg-[#FEFEFA] rounded-card-3 shadow-soft border border-border/50 p-5 transition-all duration-300 hover:shadow-soft-hover">
+        <h3 className="text-sm font-semibold text-foreground mb-2">Payers</h3>
         <ul className="space-y-1">
           {session.payers.map((payer) => (
             <li key={payer.playerId} className="flex justify-between text-sm">
-              <span className="text-gray-900">{payer.playerName}</span>
-              <span className="text-gray-700">{formatVnd(payer.amount)}</span>
+              <span className="text-foreground">{payer.playerName}</span>
+              <span className="text-muted-foreground">{formatVnd(payer.amount)}</span>
             </li>
           ))}
         </ul>
       </div>
 
       {session.transfers.length > 0 && (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-          <h3 className="text-sm font-semibold text-gray-700 mb-2">Settlement</h3>
+        <div className="bg-[#FEFEFA] rounded-card-4 shadow-soft border border-border/50 p-5 transition-all duration-300 hover:shadow-soft-hover">
+          <h3 className="text-sm font-semibold text-foreground mb-2">Settlement</h3>
           <ul className="space-y-2">
             {session.transfers.map((transfer, i) => (
               <li key={i} className="text-sm">
-                <div className="text-gray-900">
+                <div className="text-foreground">
                   {transfer.fromPlayerName} → {transfer.toPlayerName}: {formatVnd(transfer.roundedAmount)}
                 </div>
                 {transfer.roundedAmount !== transfer.exactAmount && (
-                  <div className="text-xs text-gray-400">
+                  <div className="text-xs text-muted-foreground">
                     Exact: {formatVnd(transfer.exactAmount)}
                   </div>
                 )}

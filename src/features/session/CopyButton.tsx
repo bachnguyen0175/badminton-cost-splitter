@@ -65,7 +65,7 @@ export function CopyButton({
       type="button"
       disabled={!hasValidSettlement || isProcessing}
       onClick={handleClick}
-      className="w-full min-h-[44px] rounded-lg font-medium text-sm transition-colors bg-green-600 text-white hover:bg-green-700 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
+      className="w-full min-h-[44px] rounded-full font-bold text-sm transition-all duration-300 bg-primary text-primary-foreground shadow-soft hover:scale-105 hover:shadow-[0_6px_24px_-4px_rgba(93,112,82,0.25)] active:scale-95 disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none disabled:cursor-not-allowed disabled:hover:scale-100"
     >
       {isProcessing ? 'Saving...' : 'Save & Copy'}
     </button>

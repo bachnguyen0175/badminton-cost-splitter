@@ -74,21 +74,27 @@ export default function MainScreen() {
   const hasParticipants = state.selectedPlayerIds.size > 0;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto">
-      <header className="flex items-center justify-between mb-4">
-        <h1 className="text-xl font-bold">Badminton Cost Splitter</h1>
+    <div className="relative min-h-screen p-4 max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto overflow-hidden">
+      {/* Background blobs */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute -top-32 -right-32 w-80 h-80 rounded-organic bg-primary/[0.06] blur-3xl animate-blob-drift" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-organic bg-secondary/[0.06] blur-3xl animate-blob-drift-reverse" />
+      </div>
+
+      <header className="relative flex items-center justify-between mb-6">
+        <h1 className="text-xl font-bold font-heading text-foreground">Badminton Cost Splitter</h1>
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => setShowPlayerManager(true)}
-            className="p-2 min-w-[44px] min-h-[44px] text-gray-600 hover:text-gray-900"
+            className="p-2 min-w-[44px] min-h-[44px] text-muted-foreground hover:text-foreground transition-colors duration-300"
             aria-label="Manage players"
           >
             Players
           </button>
           <Link
             to="/history"
-            className="p-2 min-w-[44px] min-h-[44px] flex items-center text-blue-600"
+            className="p-2 min-w-[44px] min-h-[44px] flex items-center text-primary hover:text-primary/80 transition-colors duration-300"
             aria-label="View history"
           >
             History
@@ -96,44 +102,56 @@ export default function MainScreen() {
         </div>
       </header>
 
-      <div className="space-y-4">
-        <PlayerSelector
-          players={players}
-          selectedPlayerIds={state.selectedPlayerIds}
-          onTogglePlayer={actions.togglePlayer}
-          onSelectAll={actions.selectAllPlayers}
-          onDeselectAll={actions.deselectAllPlayers}
-        />
+      <div className="relative space-y-5">
+        <section className="bg-[#FEFEFA] rounded-card-1 shadow-soft border border-border/50 p-5 transition-all duration-300 hover:shadow-soft-hover">
+          <PlayerSelector
+            players={players}
+            selectedPlayerIds={state.selectedPlayerIds}
+            onTogglePlayer={actions.togglePlayer}
+            onSelectAll={actions.selectAllPlayers}
+            onDeselectAll={actions.deselectAllPlayers}
+          />
+        </section>
 
         {hasParticipants ? (
           <>
-            <CostInputPanel
-              costItems={state.costItems}
-              totalCost={derived.totalCost}
-              onAddCostItem={actions.addCostItem}
-              onUpdateCostItem={actions.updateCostItem}
-              onRemoveCostItem={actions.removeCostItem}
-            />
+            <section className="bg-[#FEFEFA] rounded-card-2 shadow-soft border border-border/50 p-5 transition-all duration-300 hover:shadow-soft-hover">
+              <CostInputPanel
+                costItems={state.costItems}
+                totalCost={derived.totalCost}
+                onAddCostItem={actions.addCostItem}
+                onUpdateCostItem={actions.updateCostItem}
+                onRemoveCostItem={actions.removeCostItem}
+              />
 
-            <SessionNoteInput
-              value={state.sessionNote}
-              onChange={actions.setSessionNote}
-            />
+              <div className="mt-4">
+                <SessionNoteInput
+                  value={state.sessionNote}
+                  onChange={actions.setSessionNote}
+                />
+              </div>
+            </section>
 
-            <PayerPanel
-              participants={participants}
-              selectedPayerIds={state.selectedPayerIds}
-              payerEntries={state.payerEntries}
-              totalCost={derived.totalCost}
-              payerTotal={derived.payerTotal}
-              isPayerAmountValid={derived.isPayerAmountValid}
-              onTogglePayer={actions.togglePayer}
-              onUpdatePayerAmount={actions.updatePayerAmount}
-            />
+            <section className="bg-[#FEFEFA] rounded-card-3 shadow-soft border border-border/50 p-5 transition-all duration-300 hover:shadow-soft-hover">
+              <PayerPanel
+                participants={participants}
+                selectedPayerIds={state.selectedPayerIds}
+                payerEntries={state.payerEntries}
+                totalCost={derived.totalCost}
+                payerTotal={derived.payerTotal}
+                isPayerAmountValid={derived.isPayerAmountValid}
+                onTogglePayer={actions.togglePayer}
+                onUpdatePayerAmount={actions.updatePayerAmount}
+              />
+            </section>
 
-            <SettlementDisplay settlementResult={derived.settlementResult} />
+            {derived.settlementResult && (
+              <section className="bg-[#FEFEFA] rounded-card-4 shadow-soft border border-border/50 p-5 transition-all duration-300 hover:shadow-soft-hover">
+                <SettlementDisplay settlementResult={derived.settlementResult} />
+              </section>
+            )}
 
-            <div className="space-y-2">
+            <div className="space-y-3">
               <CopyButton
                 hasValidSettlement={derived.hasValidSettlement}
                 isPersisted={state.isPersisted}
@@ -157,7 +175,7 @@ export default function MainScreen() {
             </div>
           </>
         ) : (
-          <p className="text-sm text-gray-500 text-center py-8">
+          <p className="text-sm text-muted-foreground text-center py-8">
             Please select players before calculating
           </p>
         )}
@@ -174,7 +192,7 @@ export default function MainScreen() {
       />
 
       {displayedToast && (
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 px-4 py-2 bg-gray-800 text-white text-sm rounded-lg shadow-lg">
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 px-5 py-2.5 bg-foreground text-primary-foreground text-sm rounded-full shadow-float">
           {displayedToast}
         </div>
       )}

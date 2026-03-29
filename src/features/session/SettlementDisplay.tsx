@@ -10,8 +10,8 @@ export function SettlementDisplay({ settlementResult }: SettlementDisplayProps) 
 
   if (settlementResult.isSoloSession) {
     return (
-      <div className="p-4 bg-blue-50 rounded-lg text-center">
-        <p className="text-sm text-blue-700">
+      <div className="p-4 bg-primary/10 rounded-2xl text-center">
+        <p className="text-sm text-primary">
           Solo session — no debts to settle
         </p>
       </div>
@@ -20,20 +20,20 @@ export function SettlementDisplay({ settlementResult }: SettlementDisplayProps) 
 
   return (
     <div>
-      <h3 className="text-sm font-medium text-gray-700 mb-2">Settlement</h3>
+      <h3 className="text-sm font-medium text-muted-foreground mb-2">Settlement</h3>
       <div className="space-y-2">
         {settlementResult.transfers.map((t, i) => {
           const { roundedText, exactText, showExact } = formatVndWithExact(t.exactAmount, t.roundedAmount);
           return (
             <div key={i} className="flex items-baseline gap-1 text-sm">
-              <span className="text-gray-700">{t.fromPlayerName}</span>
-              <span className="text-gray-400">→</span>
-              <span className="text-gray-700">{t.toPlayerName}:</span>
-              <span className="font-medium text-gray-900">
+              <span className="text-foreground">{t.fromPlayerName}</span>
+              <span className="text-muted-foreground">→</span>
+              <span className="text-foreground">{t.toPlayerName}:</span>
+              <span className="font-medium text-primary">
                 {roundedText}
               </span>
               {showExact && (
-                <span className="text-xs text-gray-400 ml-1">
+                <span className="text-xs text-muted-foreground ml-1">
                   ({exactText})
                 </span>
               )}
